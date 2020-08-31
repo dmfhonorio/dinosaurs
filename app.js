@@ -1,13 +1,30 @@
 
-    // Create Dino Constructor
+// Create Dino Constructor
+
+function Dino(dino) {
+  const { species, weight, height, diet, where, when, fact } = dino;
+  this.species = species;
+  this.weight = weight;
+  this.height = height;
+  this.diet = diet;
+  this.where = where;
+  this.when = when;
+  this.fact = fact;
+}
+
+// Create Dino Objects
+let dinosList;
+fetch('dino.json')
+  .then(res => res.json())
+  .then(json => {
+    const { Dinos } = json;
+    dinosList = Dinos.map(dino => (new Dino(dino)));
+  });
 
 
-    // Create Dino Objects
+// Create Human Object
 
-
-    // Create Human Object
-
-    // Use IIFE to get human data from form
+// Use IIFE to get human data from form
 
 const human = (function () {
   const dinoForm = document.getElementById('dino-compare');
