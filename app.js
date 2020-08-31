@@ -48,16 +48,26 @@ const human = (function () {
     )
   }
 })();
-    // Create Dino Compare Method 1
+
+// Create Dino Compare Method 1
+// NOTE: Weight in JSON file is in lbs, height in inches. 
     // NOTE: Weight in JSON file is in lbs, height in inches. 
+// NOTE: Weight in JSON file is in lbs, height in inches. 
 
-    
-    // Create Dino Compare Method 2
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+Dino.prototype.compareWeight = function (weight) {
+  if (this.weight > weight) {
+    return (this.weight / weight).toFixed(2) + 'x heavier';
+  } else {
+    return (weight / this.weight).toFixed(2) + 'x lighter';
+  }
+}
 
-    
-    // Create Dino Compare Method 3
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+// Create Dino Compare Method 2
+// NOTE: Weight in JSON file is in lbs, height in inches.
+
+
+// Create Dino Compare Method 3
+// NOTE: Weight in JSON file is in lbs, height in inches.
 
 
     // Generate Tiles for each Dino in Array
