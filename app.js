@@ -71,34 +71,51 @@ Dino.prototype.compareWeight = function (weight) {
 // Generate Tiles for each Dino in Array
 // Add tiles to DOM
 
-function generateTiles(dinosList) {
-  console.log(dinosList);
-  const generateDinoTile = (dino) => {
-    let dinoNode = document.createElement('div');
-    dinoNode.className = 'grid-item';
-    let dinoSpecies = document.createElement('h3');
-    dinoSpecies.appendChild(document.createTextNode(dino.species));
-    let dinoImg = document.createElement('img');
-    dinoImg.src = `/images/${dino.species.toLowerCase()}.png`;
-    let dinoFact = document.createElement('p');
-    dinoFact.appendChild(document.createTextNode(dino.fact));
-    dinoNode.appendChild(dinoSpecies);
-    dinoNode.appendChild(dinoImg);
-    dinoNode.appendChild(dinoFact);
-    return dinoNode;
+function generateTiles(dinos) {
+  const generateTileNode = (name, imgName, description = null) => {
+    let node = document.createElement('div');
+    node.className = 'grid-item';
+    let nodeName = document.createElement('h3');
+    nodeName.appendChild(document.createTextNode(name));
+    node.appendChild(nodeName);
+    let nodeImg = document.createElement('img');
+    nodeImg.src = `/images/${imgName}.png`;
+    node.appendChild(nodeImg);
+    if (description) {
+      let nodeDescription = document.createElement('p');
+      nodeDescription.appendChild(document.createTextNode(description));
+      node.appendChild(nodeDescription);
+    }
+    return node;
   }
-
-  let grid = document.getElementById('grid');
-  dinosList.forEach(dino => {
+  const generateDinoTile = (dino) => {
+    return generateTileNode(dino.species, dino.species.toLowerCase(), dino.fact);
+  }
+  const generateHumanTile = () => {
+    const { name } = human.getInfo();
+    return generateTileNode(name, 'human');
+  }
+  const dinoNodes = [];
+  dinos.forEach(dino => {
     let dinoNode = generateDinoTile(dino);
-    grid.appendChild(dinoNode);
+    dinoNodes.push(dinoNode);
   });
-  let form = document.getElementById('dino-compare');
-  form.style = "display:none;"
+  const middleIndex = Math.floor(dinos.length / 2);
+  const humanNode = generateHumanTile();
+    dinoNodes.splice(middleIndex, 0, humanNode)
+  removeForm();
+  let grid = document.getElementById('grid');
+  dinoNodes.forEach(node => {
+    grid.appendChild(node);
+  })
 }
 
 
 // Remove form from screen
+const removeForm = () => {
+  let form = document.getElementById('dino-compare');
+  form.style = "display:none;"
+}
 
 
 // On button click, prepare and display infographic
