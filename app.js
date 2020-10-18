@@ -1,3 +1,6 @@
+const CARNIVOR_TYPE = 'carnivor';
+const OMNIVOR_TYPE = 'omnivor';
+const HERBAVOR_TYPE = 'herbavor';
 
 // Create Dino Constructor
 
@@ -48,7 +51,7 @@ const human = (function () {
   return {
     getInfo: () => {
       let name = nameForm.value;
-      let diet = dietForm.value;
+      let diet = dietForm.value.toLowerCase();
       let height;
       let weight;
       if (measurementSystem.value === 'imperial') {
@@ -89,6 +92,30 @@ Dino.prototype.compareHeight = function (height) {
 
 // Create Dino Compare Method 3
 // NOTE: Weight in JSON file is in lbs, height in inches.
+
+Dino.prototype.compareDiet = function (diet) {
+  if (this.diet === CARNIVOR_TYPE) {
+    if (diet === CARNIVOR_TYPE || diet === OMNIVOR_TYPE) {
+      return "Hunt it fast or it will eat you";
+    } else {
+      return "Run for your life";
+    }
+  } else if (this.diet === HERBAVOR_TYPE) {
+    if (diet === CARNIVOR_TYPE) {
+      return "No need to worry, it will not eat you";
+    } else {
+      return "Share a meal with it";
+    }
+  } else if (this.diet === OMNIVOR_TYPE) {
+    if (diet === OMNIVOR_TYPE) {
+      return "Share a meal with it";
+    } else if (diet === HERBAVOR_TYPE) {
+      return "It is best if you stay away";
+    } else {
+      return "Hunt it or tease it with a delicious fruit";
+    }
+  }
+}
 
 // Generate Tiles for each Dino in Array
 // Add tiles to DOM
@@ -144,13 +171,13 @@ const removeForm = () => {
 
 const dinoCompare = (event) => {
   event.preventDefault();
-  console.log(human.getInfo());
   const humanInfo = human.getInfo();
   let dinos = dinosList.map(dino => {
     return {
       ...dino,
       fact1: dino.compareWeight(humanInfo.weight),
-      fact2: dino.compareHeight(humanInfo.height)
+      fact2: dino.compareHeight(humanInfo.height),
+      fact3: dino.compareDiet(humanInfo.diet)
     }
   })
   generateTiles(dinos);
