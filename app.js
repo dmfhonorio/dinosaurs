@@ -31,21 +31,36 @@ const human = (function () {
   const nameForm = dinoForm.querySelector('#name');
   const feetForm = dinoForm.querySelector('#feet');
   const inchesForm = dinoForm.querySelector('#inches');
+  const heightMetricForm = dinoForm.querySelector('#height-metric');
   const weightForm = dinoForm.querySelector('#weight');
+  const weightMetricForm = dinoForm.querySelector('#weight-metric');
   const dietForm = dinoForm.querySelector('#diet');
+  const measurementSystem = dinoForm.querySelector('#measurement-system');
+
+  const convertKgsToPounds = (kgs) => {
+    return kgs * 2.2046;
+  }
+
+  const convertCmsToFeet = (cms) => {
+    return cms * 0.032808;
+  }
 
   return {
-    getInfo: () => (
-      {
-        name: nameForm.value,
-        height: {
-          feet: feetForm.value,
-          inches: inchesForm.value
-        },
-        weight: parseInt(weightForm.value),
-        diet: dietForm.value
+    getInfo: () => {
+      let name = nameForm.value;
+      let diet = dietForm.value;
+      let height;
+      let weight;
+      if (measurementSystem.value === 'imperial') {
+        height = parseInt(feetForm.value) + parseInt(inchesForm.value) * 0.083333;
+        weight = parseInt(weightForm.value);
+      } else {
+        height = convertCmsToFeet(heightMetricForm.value);
+        weight = parseInt(convertKgsToPounds(weightMetricForm.value));
       }
-    )
+
+      return { name, height, weight, diet }
+    }
   }
 })();
 
@@ -63,10 +78,17 @@ Dino.prototype.compareWeight = function (weight) {
 // Create Dino Compare Method 2
 // NOTE: Weight in JSON file is in lbs, height in inches.
 
+Dino.prototype.compareHeight = function (height) {
+  if (this.height > height) {
+    return (this.height / height).toFixed(2) + 'x higher';
+  } else {
+    return (height / this.height).toFixed(2) + 'x smaller';
+  }
+}
+
 
 // Create Dino Compare Method 3
 // NOTE: Weight in JSON file is in lbs, height in inches.
-
 
 // Generate Tiles for each Dino in Array
 // Add tiles to DOM
@@ -102,7 +124,7 @@ function generateTiles(dinos) {
   });
   const middleIndex = Math.floor(dinos.length / 2);
   const humanNode = generateHumanTile();
-    dinoNodes.splice(middleIndex, 0, humanNode)
+  dinoNodes.splice(middleIndex, 0, humanNode)
   removeForm();
   let grid = document.getElementById('grid');
   dinoNodes.forEach(node => {
@@ -127,14 +149,27 @@ const dinoCompare = (event) => {
   let dinos = dinosList.map(dino => {
     return {
       ...dino,
-      fact1: dino.compareWeight(humanInfo.weight)
+      fact1: dino.compareWeight(humanInfo.weight),
+      fact2: dino.compareHeight(humanInfo.height)
     }
   })
   generateTiles(dinos);
 }
 
-const dinoForm = document.getElementById('dino-compare')
+const dinoForm = document.getElementById('dino-compare');
 dinoForm.addEventListener('submit', dinoCompare);
 
-
-
+// Add Measurement System Change
+const measurementSystemSelector = document.getElementById('measurement-system');
+measurementSystemSelector.addEventListener('change', function (event) {
+  const { value } = event.target;
+  const imperialSystem = document.getElementById('imperial-system');
+  const metricSystem = document.getElementById('metric-system');
+  imperialSystem.style.display = 'none';
+  metricSystem.style.display = 'none';
+  if (value == 'metric') {
+    metricSystem.style.display = 'block';
+  } else {
+    imperialSystem.style.display = 'block';
+  }
+})

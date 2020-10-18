@@ -24,11 +24,24 @@
         <div class="form-container">
             <p>Name:</p>
             <input id="name" class="form-field__full" type="name" name="name">
-            <p>Height</p>
-            <label>Feet: <input id="feet" class="form-field__short" type="number" name="feet"></label>
-            <label>inches: <input id="inches" class="form-field__short" type="number" name="inches"></label>
-            <p>Weight:</p>
-            <label><input id="weight" class="form-field__full" type="number" name="weight">lbs</label>
+            <p>Measurement system</p>
+            <select id="measurement-system" class="form-field__full" name="measurement system">
+              <option value="imperial">Imperial</option>
+              <option value="metric">Metric</option>
+            </select>
+            <div id="imperial-system">
+              <p>Height</p>
+              <label>Feet: <input id="feet" class="form-field__short" type="number" name="feet" min="0"></label>
+              <label>inches: <input id="inches" class="form-field__short" type="number" name="inches" min="0" max="12"></label>
+              <p>Weight:</p>
+              <label><input id="weight" class="form-field__full" type="number" name="weight" min="0">lbs</label>
+            </div>
+            <div id="metric-system" hidden>
+              <p>Height</p>
+              <label><input id="height-metric" class="form-field__short" type="number" name="inches" min="0">cm</label>
+              <p>Weight:</p>
+              <label><input id="weight-metric" class="form-field__full" type="number" name="weight" min="0">kgs</label>
+            </div>
             <p>Diet:</p>
             <select id="diet" class="form-field__full" name="diet">
                 <option>Herbavor</option>
