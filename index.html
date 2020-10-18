@@ -23,7 +23,7 @@
     <form id="dino-compare">
         <div class="form-container">
             <p>Name:</p>
-            <input id="name" class="form-field__full" type="name" name="name">
+            <input id="name" class="form-field__full" type="name" name="name" required>
             <p>Measurement system</p>
             <select id="measurement-system" class="form-field__full" name="measurement system">
               <option value="imperial">Imperial</option>
@@ -31,10 +31,10 @@
             </select>
             <div id="imperial-system">
               <p>Height</p>
-              <label>Feet: <input id="feet" class="form-field__short" type="number" name="feet" min="0"></label>
-              <label>inches: <input id="inches" class="form-field__short" type="number" name="inches" min="0" max="12"></label>
+              <label>Feet: <input id="feet" class="form-field__short" type="number" name="feet" min="0" required></label>
+              <label>inches: <input id="inches" class="form-field__short" type="number" name="inches" min="0" max="12" required></label>
               <p>Weight:</p>
-              <label><input id="weight" class="form-field__full" type="number" name="weight" min="0">lbs</label>
+              <label><input id="weight" class="form-field__full" type="number" name="weight" min="0" required>lbs</label>
             </div>
             <div id="metric-system" hidden>
               <p>Height</p>

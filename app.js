@@ -192,11 +192,16 @@ measurementSystemSelector.addEventListener('change', function (event) {
   const { value } = event.target;
   const imperialSystem = document.getElementById('imperial-system');
   const metricSystem = document.getElementById('metric-system');
-  imperialSystem.style.display = 'none';
-  metricSystem.style.display = 'none';
-  if (value == 'metric') {
-    metricSystem.style.display = 'block';
-  } else {
-    imperialSystem.style.display = 'block';
-  }
+  imperialSystem.style.display = value == 'imperial' ? 'block' : 'none';
+  metricSystem.style.display = value == 'metric' ? 'block' : 'none';
+  const feetInpt = imperialSystem.querySelector("#feet");
+  const inchesInpt = imperialSystem.querySelector("#inches");
+  const weightInpt = imperialSystem.querySelector("#weight");
+  const heightMetricInpt = metricSystem.querySelector("#height-metric");
+  const weightMetricInpt = metricSystem.querySelector("#weight-metric");
+  feetInpt.required = value == 'imperial';
+  inchesInpt.required = value == 'imperial';
+  weightInpt.required = value == 'imperial';
+  heightMetricInpt.required = value == 'metric';
+  weightMetricInpt.required = value == 'metric';
 })
