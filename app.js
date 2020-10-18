@@ -11,7 +11,7 @@ const Utils = {
   }
 }
 
-// Create Dino Constructor
+// Dino
 
 function Dino(dino) {
   const { species, weight, height, diet, where, when, fact } = dino;
@@ -24,9 +24,6 @@ function Dino(dino) {
   this.fact = fact;
 }
 
-// Create Dino Compare Method 1
-// NOTE: Weight in JSON file is in lbs, height in inches. 
-
 Dino.prototype.compareWeight = function (weight) {
   if (this.weight > weight) {
     return (this.weight / weight).toFixed(2) + 'x heavier';
@@ -35,9 +32,6 @@ Dino.prototype.compareWeight = function (weight) {
   }
 }
 
-// Create Dino Compare Method 2
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
 Dino.prototype.compareHeight = function (height) {
   if (this.height > height) {
     return (this.height / height).toFixed(2) + 'x higher';
@@ -45,10 +39,6 @@ Dino.prototype.compareHeight = function (height) {
     return (height / this.height).toFixed(2) + 'x smaller';
   }
 }
-
-
-// Create Dino Compare Method 3
-// NOTE: Weight in JSON file is in lbs, height in inches.
 
 Dino.prototype.compareDiet = function (diet) {
   if (this.diet === CARNIVOR_TYPE) {
@@ -73,8 +63,6 @@ Dino.prototype.compareDiet = function (diet) {
     }
   }
 }
-
-// Create Dino Objects
 let dinosList;
 fetch('dino.json')
   .then(res => res.json())
@@ -84,9 +72,7 @@ fetch('dino.json')
   });
 
 
-// Create Human Object
-
-// Use IIFE to get human data from form
+// Create Human Object IIFE
 
 const human = (function () {
   const dinoForm = document.getElementById('dino-compare');
@@ -167,42 +153,40 @@ const removeForm = () => {
   form.style = "display:none;"
 }
 
+(function addListeners(){
+  // On button click, prepare and display infographic
+  const dinoForm = document.getElementById('dino-compare');
+  dinoForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const humanInfo = human.getInfo();
+    let dinos = dinosList.map(dino => {
+      return {
+        ...dino,
+        fact1: dino.compareWeight(humanInfo.weight),
+        fact2: dino.compareHeight(humanInfo.height),
+        fact3: dino.compareDiet(humanInfo.diet)
+      }
+    })
+    generateTiles(dinos);
+  });
 
-// On button click, prepare and display infographic
-
-const dinoCompare = (event) => {
-  event.preventDefault();
-  const humanInfo = human.getInfo();
-  let dinos = dinosList.map(dino => {
-    return {
-      ...dino,
-      fact1: dino.compareWeight(humanInfo.weight),
-      fact2: dino.compareHeight(humanInfo.height),
-      fact3: dino.compareDiet(humanInfo.diet)
-    }
-  })
-  generateTiles(dinos);
-}
-
-const dinoForm = document.getElementById('dino-compare');
-dinoForm.addEventListener('submit', dinoCompare);
-
-// Add Measurement System Change
-const measurementSystemSelector = document.getElementById('measurement-system');
-measurementSystemSelector.addEventListener('change', function (event) {
-  const { value } = event.target;
-  const imperialSystem = document.getElementById('imperial-system');
-  const metricSystem = document.getElementById('metric-system');
-  imperialSystem.style.display = value == 'imperial' ? 'block' : 'none';
-  metricSystem.style.display = value == 'metric' ? 'block' : 'none';
-  const feetInpt = imperialSystem.querySelector("#feet");
-  const inchesInpt = imperialSystem.querySelector("#inches");
-  const weightInpt = imperialSystem.querySelector("#weight");
-  const heightMetricInpt = metricSystem.querySelector("#height-metric");
-  const weightMetricInpt = metricSystem.querySelector("#weight-metric");
-  feetInpt.required = value == 'imperial';
-  inchesInpt.required = value == 'imperial';
-  weightInpt.required = value == 'imperial';
-  heightMetricInpt.required = value == 'metric';
-  weightMetricInpt.required = value == 'metric';
-})
+  // Add Measurement System Change
+  const measurementSystemSelector = document.getElementById('measurement-system');
+  measurementSystemSelector.addEventListener('change', function (event) {
+    const { value } = event.target;
+    const imperialSystem = document.getElementById('imperial-system');
+    const metricSystem = document.getElementById('metric-system');
+    imperialSystem.style.display = value == 'imperial' ? 'block' : 'none';
+    metricSystem.style.display = value == 'metric' ? 'block' : 'none';
+    const feetInpt = imperialSystem.querySelector("#feet");
+    const inchesInpt = imperialSystem.querySelector("#inches");
+    const weightInpt = imperialSystem.querySelector("#weight");
+    const heightMetricInpt = metricSystem.querySelector("#height-metric");
+    const weightMetricInpt = metricSystem.querySelector("#weight-metric");
+    feetInpt.required = value == 'imperial';
+    inchesInpt.required = value == 'imperial';
+    weightInpt.required = value == 'imperial';
+    heightMetricInpt.required = value == 'metric';
+    weightMetricInpt.required = value == 'metric';
+  });
+})();
