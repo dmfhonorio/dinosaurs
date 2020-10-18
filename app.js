@@ -167,7 +167,7 @@ const human = (function () {
       nodeName.appendChild(document.createTextNode(name));
       node.appendChild(nodeName);
       let nodeImg = document.createElement('img');
-      nodeImg.src = `/images/${imgName}.png`;
+      nodeImg.src = `images/${imgName}.png`;
       node.appendChild(nodeImg);
       if (description) {
         let nodeDescription = document.createElement('p');
