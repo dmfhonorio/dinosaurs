@@ -56,13 +56,13 @@ There's no extra credit in this course, but if you plan to use this project in y
 Some ideas might be to:
 - [x] validate the form data to ensure the data is acceptable and complete.
 - [ ] Allow the user to generate a new infographic. 
-- [ ] Move the tile colors from CSS to JS for more control. 
+- [x] Move the tile colors from CSS to JS for more control. 
 - [x] Randomize the order of the tiles while keeping the human in the middle. 
 - [ ] Create a hover state on the tiles that displays the rest of the species statistics. 
 - [ ] Create additional methods for comparing data. 
 - [ ] Rewrite the project to use constructor functions, factory functions, the module pattern, and revealing module pattern. 
 - [ ] Change out data and images to generate an infographic of your own choosing. 
-- [ ] Allow the user to select different units for the numbers and update your methods to account for this. 
+- [x] Allow the user to select different units for the numbers and update your methods to account for this. 
 - [ ] Make changes to the CSS, and HTML to make the project your own. 
 
 

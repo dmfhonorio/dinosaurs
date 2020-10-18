@@ -3,6 +3,8 @@ const OMNIVOR_TYPE = 'omnivor';
 const HERBAVOR_TYPE = 'herbavor';
 const PIGEON_TYPE = 'Pigeon';
 
+const COLORS = ["#009687f5", "#dc7657f5", "#4bb3c1fa", "#fac069f9", "#b94169fa", "#7f62b3fa", "#9fc376f9", "#677bcbfa", "#67a866f9"];
+
 const Utils = {
   convertKgsToPounds: (kgs) => {
     return kgs * 2.2046;
@@ -122,9 +124,10 @@ const human = (function () {
   // Add tiles to DOM
 
   function generateTiles(dinos) {
-    const generateTileNode = (name, imgName, description = null) => {
+    const generateTileNode = (color, name, imgName, description = null) => {
       let node = document.createElement('div');
       node.className = 'grid-item';
+      node.style.background = color;
       let nodeName = document.createElement('h3');
       nodeName.appendChild(document.createTextNode(name));
       node.appendChild(nodeName);
@@ -138,17 +141,18 @@ const human = (function () {
       }
       return node;
     }
-    const generateDinoTile = (dino) => {
+    const generateDinoTile = (dino, color) => {
       const randomIndex = parseInt(Math.random() * dino.facts.length);
-      return generateTileNode(dino.species, dino.species.toLowerCase(), dino.facts[randomIndex]);
+      return generateTileNode(color, dino.species, dino.species.toLowerCase(), dino.facts[randomIndex]);
     }
     const generateHumanTile = () => {
       const { name } = human.getInfo();
-      return generateTileNode(name, 'human');
+      return generateTileNode(COLORS[COLORS.length - 1], name, 'human');
     }
     let dinoNodes = [];
-    dinos.forEach(dino => {
-      let dinoNode = generateDinoTile(dino);
+    dinos.forEach((dino, index) => {
+      const color = COLORS[index];
+      let dinoNode = generateDinoTile(dino, color);
       dinoNodes.push(dinoNode);
     });
     dinoNodes = Utils.shuffleList(dinoNodes);
