@@ -39,17 +39,17 @@ function Dino(dino) {
 
 Dino.prototype.compareWeight = function (weight) {
   if (this.weight > weight) {
-    return (this.weight / weight).toFixed(2) + 'x heavier';
+    return (this.weight / weight).toFixed(2) + 'x heavier than you';
   } else {
-    return (weight / this.weight).toFixed(2) + 'x lighter';
+    return (weight / this.weight).toFixed(2) + 'x lighter than you';
   }
 }
 
 Dino.prototype.compareHeight = function (height) {
   if (this.height > height) {
-    return (this.height / height).toFixed(2) + 'x higher';
+    return (this.height / height).toFixed(2) + 'x higher than you';
   } else {
-    return (height / this.height).toFixed(2) + 'x smaller';
+    return (height / this.height).toFixed(2) + 'x smaller than you';
   }
 }
 
@@ -219,6 +219,9 @@ const human = (function () {
       }
       if (dino.species != PIGEON_TYPE) {
         newDino.facts = newDino.facts.concat([
+          `Weighs ${dino.weight} lbs`,
+          `Measures ${dino.height} ft`,
+          `${dino.where}, ${dino.when}`,
           dino.compareWeight(humanInfo.weight),
           dino.compareHeight(humanInfo.height),
           dino.compareDiet(humanInfo.diet)
