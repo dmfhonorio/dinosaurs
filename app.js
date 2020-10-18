@@ -158,9 +158,8 @@ const human = (function () {
 
   // Generate Tiles for each Dino in Array
   // Add tiles to DOM
-
   function generateTiles(dinos) {
-    const generateTileNode = (color, name, imgName, description = null) => {
+    const generateTileNode = (color, name, imgName, description = null, facts = null) => {
       let node = document.createElement('div');
       node.className = 'grid-item';
       node.style.background = color;
@@ -175,11 +174,21 @@ const human = (function () {
         nodeDescription.appendChild(document.createTextNode(description));
         node.appendChild(nodeDescription);
       }
+      if (facts) {
+        let factsList = document.createElement('ul');
+        factsList.className = 'dino-facts-list';
+        facts.forEach(fact => {
+          let factNode = document.createElement('li');
+          factNode.innerText = fact;
+          factsList.appendChild(factNode);
+        })
+        node.appendChild(factsList);
+      }
       return node;
     }
     const generateDinoTile = (dino, color) => {
       const randomIndex = parseInt(Math.random() * dino.facts.length);
-      return generateTileNode(color, dino.species, dino.species.toLowerCase(), dino.facts[randomIndex]);
+      return generateTileNode(color, dino.species, dino.species.toLowerCase(), dino.facts[randomIndex], dino.facts);
     }
     const generateHumanTile = () => {
       const { name } = human.getInfo();

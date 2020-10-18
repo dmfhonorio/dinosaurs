@@ -156,3 +156,22 @@ select {
 .new-infographic-btn:active {
   background: #7d60b0;
 }
+
+.grid-item:hover .dino-facts-list {
+  display: block;
+}
+
+.dino-facts-list {
+  position: absolute;
+  top: 0;
+  background: white;
+  width: 75%;
+  transform: translateX(-50%);
+  left: 50%;
+  text-align: left;
+  display: none;
+}
+
+.dino-facts-list li {
+  padding: 0.25rem 0;
+}
