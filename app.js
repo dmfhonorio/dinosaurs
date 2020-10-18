@@ -9,6 +9,16 @@ const Utils = {
   },
   convertCmsToFeet: (cms) => {
     return cms * 0.032808;
+  },
+  shuffleList: (list) => {
+    let newList = [...list];
+    for (var i = newList.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = newList[i];
+      newList[i] = newList[j];
+      newList[j] = temp;
+    }
+    return newList;
   }
 }
 
@@ -136,11 +146,12 @@ const human = (function () {
       const { name } = human.getInfo();
       return generateTileNode(name, 'human');
     }
-    const dinoNodes = [];
+    let dinoNodes = [];
     dinos.forEach(dino => {
       let dinoNode = generateDinoTile(dino);
       dinoNodes.push(dinoNode);
     });
+    dinoNodes = Utils.shuffleList(dinoNodes);
     const middleIndex = Math.floor(dinos.length / 2);
     const humanNode = generateHumanTile();
     dinoNodes.splice(middleIndex, 0, humanNode)

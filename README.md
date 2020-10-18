@@ -44,20 +44,20 @@ To complete this project, your UI must show the following:
 
 To complete this project, your backend code must:
 
-- [ ] Contain a class and all necessary objects
-- [ ] Contain at least 3 methods for comparing dinosaurs to the human
-- [ ] Get user data from the DOM
-- [ ] Append tiles with object data to DOM
+- [x] Contain a class and all necessary objects
+- [x] Contain at least 3 methods for comparing dinosaurs to the human
+- [x] Get user data from the DOM
+- [x] Append tiles with object data to DOM
 
 ### Above and Beyond
 
 There's no extra credit in this course, but if you plan to use this project in your portfolio, you may enjoy taking this project further. 
 
 Some ideas might be to:
-- [ ] validate the form data to ensure the data is acceptable and complete.
+- [x] validate the form data to ensure the data is acceptable and complete.
 - [ ] Allow the user to generate a new infographic. 
 - [ ] Move the tile colors from CSS to JS for more control. 
-- [ ] Randomize the order of the tiles while keeping the human in the middle. 
+- [x] Randomize the order of the tiles while keeping the human in the middle. 
 - [ ] Create a hover state on the tiles that displays the rest of the species statistics. 
 - [ ] Create additional methods for comparing data. 
 - [ ] Rewrite the project to use constructor functions, factory functions, the module pattern, and revealing module pattern. 
