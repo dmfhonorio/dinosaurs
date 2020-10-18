@@ -2,6 +2,15 @@ const CARNIVOR_TYPE = 'carnivor';
 const OMNIVOR_TYPE = 'omnivor';
 const HERBAVOR_TYPE = 'herbavor';
 
+const Utils = {
+  convertKgsToPounds: (kgs) => {
+    return kgs * 2.2046;
+  },
+  convertCmsToFeet: (cms) => {
+    return cms * 0.032808;
+  }
+}
+
 // Create Dino Constructor
 
 function Dino(dino) {
@@ -14,58 +23,6 @@ function Dino(dino) {
   this.when = when;
   this.fact = fact;
 }
-
-// Create Dino Objects
-let dinosList;
-fetch('dino.json')
-  .then(res => res.json())
-  .then(json => {
-    const { Dinos } = json;
-    dinosList = Dinos.map(dino => (new Dino(dino)));
-  });
-
-
-// Create Human Object
-
-// Use IIFE to get human data from form
-
-const human = (function () {
-  const dinoForm = document.getElementById('dino-compare');
-  const nameForm = dinoForm.querySelector('#name');
-  const feetForm = dinoForm.querySelector('#feet');
-  const inchesForm = dinoForm.querySelector('#inches');
-  const heightMetricForm = dinoForm.querySelector('#height-metric');
-  const weightForm = dinoForm.querySelector('#weight');
-  const weightMetricForm = dinoForm.querySelector('#weight-metric');
-  const dietForm = dinoForm.querySelector('#diet');
-  const measurementSystem = dinoForm.querySelector('#measurement-system');
-
-  const convertKgsToPounds = (kgs) => {
-    return kgs * 2.2046;
-  }
-
-  const convertCmsToFeet = (cms) => {
-    return cms * 0.032808;
-  }
-
-  return {
-    getInfo: () => {
-      let name = nameForm.value;
-      let diet = dietForm.value.toLowerCase();
-      let height;
-      let weight;
-      if (measurementSystem.value === 'imperial') {
-        height = parseInt(feetForm.value) + parseInt(inchesForm.value) * 0.083333;
-        weight = parseInt(weightForm.value);
-      } else {
-        height = convertCmsToFeet(heightMetricForm.value);
-        weight = parseInt(convertKgsToPounds(weightMetricForm.value));
-      }
-
-      return { name, height, weight, diet }
-    }
-  }
-})();
 
 // Create Dino Compare Method 1
 // NOTE: Weight in JSON file is in lbs, height in inches. 
@@ -116,6 +73,50 @@ Dino.prototype.compareDiet = function (diet) {
     }
   }
 }
+
+// Create Dino Objects
+let dinosList;
+fetch('dino.json')
+  .then(res => res.json())
+  .then(json => {
+    const { Dinos } = json;
+    dinosList = Dinos.map(dino => (new Dino(dino)));
+  });
+
+
+// Create Human Object
+
+// Use IIFE to get human data from form
+
+const human = (function () {
+  const dinoForm = document.getElementById('dino-compare');
+  const nameForm = dinoForm.querySelector('#name');
+  const feetForm = dinoForm.querySelector('#feet');
+  const inchesForm = dinoForm.querySelector('#inches');
+  const heightMetricForm = dinoForm.querySelector('#height-metric');
+  const weightForm = dinoForm.querySelector('#weight');
+  const weightMetricForm = dinoForm.querySelector('#weight-metric');
+  const dietForm = dinoForm.querySelector('#diet');
+  const measurementSystem = dinoForm.querySelector('#measurement-system');
+
+  return {
+    getInfo: () => {
+      let name = nameForm.value;
+      let diet = dietForm.value.toLowerCase();
+      let height;
+      let weight;
+      if (measurementSystem.value === 'imperial') {
+        height = parseInt(feetForm.value) + parseInt(inchesForm.value) * 0.083333;
+        weight = parseInt(weightForm.value);
+      } else {
+        height = Utils.convertCmsToFeet(heightMetricForm.value);
+        weight = parseInt(Utils.convertKgsToPounds(weightMetricForm.value));
+      }
+
+      return { name, height, weight, diet }
+    }
+  }
+})();
 
 // Generate Tiles for each Dino in Array
 // Add tiles to DOM
