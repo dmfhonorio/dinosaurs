@@ -58,7 +58,7 @@ Some ideas might be to:
 - [x] Allow the user to generate a new infographic. 
 - [x] Move the tile colors from CSS to JS for more control. 
 - [x] Randomize the order of the tiles while keeping the human in the middle. 
-- [ ] Create a hover state on the tiles that displays the rest of the species statistics. 
+- [x] Create a hover state on the tiles that displays the rest of the species statistics. 
 - [ ] Create additional methods for comparing data. 
 - [ ] Rewrite the project to use constructor functions, factory functions, the module pattern, and revealing module pattern. 
 - [ ] Change out data and images to generate an infographic of your own choosing. 
