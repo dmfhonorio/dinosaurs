@@ -55,7 +55,7 @@ There's no extra credit in this course, but if you plan to use this project in y
 
 Some ideas might be to:
 - [x] validate the form data to ensure the data is acceptable and complete.
-- [ ] Allow the user to generate a new infographic. 
+- [x] Allow the user to generate a new infographic. 
 - [x] Move the tile colors from CSS to JS for more control. 
 - [x] Randomize the order of the tiles while keeping the human in the middle. 
 - [ ] Create a hover state on the tiles that displays the rest of the species statistics. 

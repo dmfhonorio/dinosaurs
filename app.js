@@ -102,7 +102,7 @@ const human = (function () {
   return {
     getInfo: () => {
       let name = nameForm.value;
-      let diet = dietForm.value.toLowerCase();
+      let diet = dietForm.value;
       let height;
       let weight;
       if (measurementSystem.value === 'imperial') {
@@ -119,6 +119,42 @@ const human = (function () {
 })();
 
 (function addListeners() {
+
+  const createNewInfographicBtn = () => {
+    let newBtn = document.createElement('button');
+    newBtn.innerText = 'Create new infographic';
+    newBtn.className = 'new-infographic-btn';
+    newBtn.addEventListener('click', (event) => {
+      let form = document.getElementById('dino-compare');
+      form.style = "display:block;";
+      let tilesWrapper = document.getElementById('dino-tiles');
+      tilesWrapper.innerHTML = '';
+    })
+    return newBtn;
+  }
+
+  // Remove form from screen
+  const removeForm = () => {
+    let form = document.getElementById('dino-compare');
+    const nameForm = dinoForm.querySelector('#name');
+    const feetForm = dinoForm.querySelector('#feet');
+    const inchesForm = dinoForm.querySelector('#inches');
+    const heightMetricForm = dinoForm.querySelector('#height-metric');
+    const weightForm = dinoForm.querySelector('#weight');
+    const weightMetricForm = dinoForm.querySelector('#weight-metric');
+    const dietForm = dinoForm.querySelector('#diet');
+    const measurementSystem = dinoForm.querySelector('#measurement-system');
+    form.style = "display:none;"
+    nameForm.value = '';
+    feetForm.value = '';
+    inchesForm.value = '';
+    heightMetricForm.value = '';
+    weightForm.value = '';
+    weightMetricForm.value = '';
+    dietForm.value = 'herbavor';
+    measurementSystem.value = 'imperial';
+    measurementSystem.dispatchEvent(new Event('change'));
+  }
 
   // Generate Tiles for each Dino in Array
   // Add tiles to DOM
@@ -160,17 +196,15 @@ const human = (function () {
     const humanNode = generateHumanTile();
     dinoNodes.splice(middleIndex, 0, humanNode)
     removeForm();
-    let grid = document.getElementById('grid');
+    const newInfoButton = createNewInfographicBtn();
+    let tilesWrapper = document.getElementById('dino-tiles');
+    tilesWrapper.appendChild(newInfoButton);
+    const grid = document.createElement('div');
+    grid.id = 'grid';
     dinoNodes.forEach(node => {
       grid.appendChild(node);
     })
-  }
-
-
-  // Remove form from screen
-  const removeForm = () => {
-    let form = document.getElementById('dino-compare');
-    form.style = "display:none;"
+    tilesWrapper.appendChild(grid);
   }
 
   // On button click, prepare and display infographic
