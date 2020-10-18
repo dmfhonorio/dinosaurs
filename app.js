@@ -1,6 +1,7 @@
 const CARNIVOR_TYPE = 'carnivor';
 const OMNIVOR_TYPE = 'omnivor';
 const HERBAVOR_TYPE = 'herbavor';
+const PIGEON_TYPE = 'Pigeon';
 
 const Utils = {
   convertKgsToPounds: (kgs) => {
@@ -128,7 +129,8 @@ const human = (function () {
       return node;
     }
     const generateDinoTile = (dino) => {
-      return generateTileNode(dino.species, dino.species.toLowerCase(), dino.fact);
+      const randomIndex = parseInt(Math.random() * dino.facts.length);
+      return generateTileNode(dino.species, dino.species.toLowerCase(), dino.facts[randomIndex]);
     }
     const generateHumanTile = () => {
       const { name } = human.getInfo();
@@ -155,22 +157,25 @@ const human = (function () {
     let form = document.getElementById('dino-compare');
     form.style = "display:none;"
   }
-  
+
   // On button click, prepare and display infographic
   const dinoForm = document.getElementById('dino-compare');
   dinoForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const humanInfo = human.getInfo();
     let dinos = dinosList.map(dino => {
-      return {
+      const newDino = {
         ...dino,
-        facts: [
-          dino.fact,
+        facts: [dino.fact]
+      }
+      if (dino.species != PIGEON_TYPE) {
+        newDino.facts = newDino.facts.concat([
           dino.compareWeight(humanInfo.weight),
           dino.compareHeight(humanInfo.height),
           dino.compareDiet(humanInfo.diet)
-        ]
+        ])
       }
+      return newDino;
     })
     generateTiles(dinos);
   });
